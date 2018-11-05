@@ -28,6 +28,13 @@ public class ComplexTest {
     }
 
     @Test
+    void testReal() {
+        assertEquals(new Complex(0, 0), Complex.real(0));
+        assertEquals(new Complex(1, 0), Complex.real(1));
+        assertEquals(new Complex(-1, 0), Complex.real(-1));
+    }
+
+    @Test
     void testEquals() {
         assertEquals(new Complex(1, 2), new Complex(1, 2));
         assertNotEquals(new Complex(1, 1), new Complex(1, 2));
