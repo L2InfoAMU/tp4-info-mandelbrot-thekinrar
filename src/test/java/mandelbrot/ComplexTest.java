@@ -122,6 +122,13 @@ public class ComplexTest {
     }
 
     @Test
+    void testMultiply() {
+        assertEquals(onePlusI, onePlusI.multiply(Complex.ONE));
+        assertEquals(new Complex(2, 0), Complex.ONE.multiply(two));
+        assertEquals(two, oneMinusI.multiply(onePlusI));
+    }
+
+    @Test
     void testDivide(){
         assertEquals(onePlusI, onePlusI.divide(Complex.ONE));
         assertEquals(new Complex(0.5, 0), Complex.ONE.divide(two));
