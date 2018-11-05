@@ -150,6 +150,13 @@ public class ComplexTest {
     }
 
     @Test
+    void testScale() {
+        assertEquals(Complex.ZERO, new Complex(2, 3).scale(0));
+        assertEquals(Complex.real(9), Complex.real(3).scale(3));
+        assertEquals(new Complex(40, 56), new Complex(5,7).scale(8));
+    }
+
+    @Test
     void testPow() {
         assertEquals(Complex.ONE, Complex.ONE.pow(0));
         assertEquals(Complex.real(27), Complex.real(3).pow(3));
