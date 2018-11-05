@@ -150,6 +150,13 @@ public class ComplexTest {
     }
 
     @Test
+    void testPow() {
+        assertEquals(Complex.ONE, Complex.ONE.pow(0));
+        assertEquals(Complex.real(27), Complex.real(3).pow(3));
+        assertEquals(new Complex(-286, -259), new Complex(2, 7).pow(3));
+    }
+
+    @Test
     void testConjugate(){
         assertEquals(Complex.ZERO, Complex.ZERO.conjugate());
         assertEquals(Complex.ONE, Complex.ONE.conjugate());
