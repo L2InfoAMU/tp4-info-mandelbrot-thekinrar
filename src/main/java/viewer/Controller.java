@@ -6,9 +6,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
 import javafx.scene.control.Button;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelWriter;
@@ -34,13 +33,21 @@ public class Controller implements Initializable {
      * The number of subpixels for each pixel is the square of <code>SUPERSAMPLING</code>
      */
     private static final int SUPERSAMPLING = 3;
+
     public TextField textField_centerX;
     public TextField textField_centerY;
     public TextField textField_width;
-    public TextField textField_aspectRatioN;
-    public TextField textField_aspectRatioD;
-    public ProgressBar progressBar;
+
     public Button button_apply;
+
+    public ProgressBar progressBar;
+
+    public ColorPicker color0;
+    public ColorPicker color1;
+    public ColorPicker color2;
+    public ColorPicker color3;
+    public ColorPicker color4;
+    public ColorPicker color5;
 
     @FXML
     private Canvas canvas; /* The canvas to draw on */
@@ -62,7 +69,7 @@ public class Controller implements Initializable {
                     Color.rgb(250, 250, 200)
             };
     /* algorithm to generate the distribution of colors */
-    private Histogram histogram = new Histogram(breakpoints, colors);
+    private Histogram histogram;
 
     /**
      * Method called when the graphical interface is loaded
@@ -71,7 +78,14 @@ public class Controller implements Initializable {
      * @param resources resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {}
+    public void initialize(URL location, ResourceBundle resources) {
+        color0.setValue(colors[0]);
+        color1.setValue(colors[1]);
+        color2.setValue(colors[2]);
+        color3.setValue(colors[3]);
+        color4.setValue(colors[4]);
+        color5.setValue(colors[5]);
+    }
 
     /**
      * compute and display the image.
@@ -190,7 +204,7 @@ public class Controller implements Initializable {
                     Double.parseDouble(textField_centerX.getText()),
                     Double.parseDouble(textField_centerY.getText()),
                     Double.parseDouble(textField_width.getText()),
-                    Double.parseDouble(textField_aspectRatioN.getText()) / Double.parseDouble(textField_aspectRatioD.getText())
+                    (double) 4 / 3
             );
         } catch(NumberFormatException e) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -204,10 +218,18 @@ public class Controller implements Initializable {
             return;
         }
 
-        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-
         progressBar.setProgress(0);
         button_apply.setDisable(true);
+
+        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        colors[0] = color0.getValue();
+        colors[1] = color1.getValue();
+        colors[2] = color2.getValue();
+        colors[3] = color3.getValue();
+        colors[4] = color4.getValue();
+        colors[5] = color5.getValue();
+        histogram = new Histogram(breakpoints, colors);
 
         new Thread(this::render).start();
     }

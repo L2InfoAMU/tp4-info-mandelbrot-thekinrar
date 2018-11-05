@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ProgressBar?>
 <?import javafx.scene.control.TextField?>
@@ -10,9 +12,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewer.Controller">
+<GridPane alignment="center" hgap="10" prefHeight="900.0" prefWidth="1200.0" vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewer.Controller">
 
-    <Canvas fx:id="canvas" height="900" width="1200" />
+    <Canvas fx:id="canvas" height="900.0" width="1200.0" />
    <FlowPane hgap="5.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
       <children>
          <Label text="centerX" />
@@ -21,19 +23,40 @@
          <TextField fx:id="textField_centerY" prefWidth="75.0" text="0" />
          <Label text="width" />
          <TextField fx:id="textField_width" prefWidth="75.0" text="3" />
-         <Label text="aspectRatio" />
-         <TextField fx:id="textField_aspectRatioN" prefWidth="75.0" text="4" />
-         <Label text="/" />
-         <TextField fx:id="textField_aspectRatioD" prefWidth="75.0" text="3" />
          <Button fx:id="button_apply" mnemonicParsing="false" onAction="#apply" text="Render" />
-         <ProgressBar fx:id="progressBar" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="450.0" progress="0.0" />
+         <ProgressBar fx:id="progressBar" maxWidth="1.7976931348623157E308" prefHeight="20.0" prefWidth="730.0" progress="0.0" />
       </children>
    </FlowPane>
+   <GridPane hgap="5.0" GridPane.rowIndex="2">
+     <columnConstraints>
+       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+     </columnConstraints>
+     <rowConstraints>
+       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+     </rowConstraints>
+      <children>
+         <ColorPicker fx:id="color0" maxWidth="1.7976931348623157E308" />
+         <ColorPicker fx:id="color1" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+         <ColorPicker fx:id="color2" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" />
+         <ColorPicker fx:id="color3" maxWidth="1.7976931348623157E308" GridPane.columnIndex="3" />
+         <ColorPicker fx:id="color4" maxWidth="1.7976931348623157E308" GridPane.columnIndex="4" />
+         <ColorPicker fx:id="color5" maxWidth="1.7976931348623157E308" GridPane.columnIndex="5" />
+      </children>
+      <GridPane.margin>
+         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+      </GridPane.margin>
+   </GridPane>
    <columnConstraints>
       <ColumnConstraints />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="900.0" minHeight="798.0" prefHeight="888.0" />
-      <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="42.0" />
+      <RowConstraints maxHeight="1.7976931348623157E308" />
+      <RowConstraints maxHeight="25.0" minHeight="25.0" prefHeight="25.0" />
+      <RowConstraints maxHeight="35.0" minHeight="35.0" prefHeight="35.0" />
    </rowConstraints>
 </GridPane>
