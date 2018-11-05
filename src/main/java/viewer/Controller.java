@@ -1,17 +1,24 @@
 package viewer;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import mandelbrot.Complex;
 import mandelbrot.Mandelbrot;
 
+import java.awt.*;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +39,8 @@ public class Controller implements Initializable {
     public TextField textField_width;
     public TextField textField_aspectRatioN;
     public TextField textField_aspectRatioD;
+    public ProgressBar progressBar;
+    public Button button_apply;
 
     @FXML
     private Canvas canvas; /* The canvas to draw on */
@@ -68,8 +77,11 @@ public class Controller implements Initializable {
      * compute and display the image.
      */
     private void render() {
-        List<Pixel> pixels = getPixels();
-        renderPixels(pixels);
+        renderPixels(getPixels());
+
+        Platform.runLater(() -> {
+            button_apply.setDisable(false);
+        });
     }
 
     /**
@@ -78,10 +90,14 @@ public class Controller implements Initializable {
      * @param pixels the list of all the pixels to display
      */
     private void renderPixels(List<Pixel> pixels) {
-        GraphicsContext context = canvas.getGraphicsContext2D();
-        for (Pixel pix : pixels) {
-            pix.render(context);
+        WritableImage image = new WritableImage((int) canvas.getWidth(), (int) canvas.getHeight());
+        PixelWriter writer = image.getPixelWriter();
+
+        for (int i = 0; i < pixels.size(); ++i) {
+            pixels.get(i).render(writer);
         }
+
+        canvas.getGraphicsContext2D().drawImage(image, 0, 0);
     }
 
     /**
@@ -135,6 +151,9 @@ public class Controller implements Initializable {
                 subPixels.addAll(pix.getSubPixels());
                 pixels.add(pix);
             }
+
+            int finalX = x;
+            Platform.runLater(() -> onRenderProgress((double) finalX / width));
         }
         setSubPixelsColors(subPixels);
         return pixels;
@@ -180,9 +199,20 @@ public class Controller implements Initializable {
             alert.setContentText(e.toString());
 
             alert.initModality(Modality.APPLICATION_MODAL);
-            alert.show();
+            alert.showAndWait();
+
+            return;
         }
 
-        render();
+        canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+
+        progressBar.setProgress(0);
+        button_apply.setDisable(true);
+
+        new Thread(this::render).start();
+    }
+
+    public void onRenderProgress(double progress) {
+        progressBar.setProgress(progress);
     }
 }

@@ -1,6 +1,7 @@
 package viewer;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.PixelWriter;
 import javafx.scene.paint.Color;
 
 import java.util.Collection;
@@ -58,11 +59,10 @@ class Pixel {
     /**
      * Displays the pixel.
      *
-     * @param context the context of the canvas on which to paint.
+     * @param writer the writer of the temporary image on which to paint.
      */
-    void render(GraphicsContext context) {
-        context.setFill(getAverageColor());
-        context.fillRect((double) x, (double) y, 1, 1);
+    void render(PixelWriter writer) {
+        writer.setColor(x, y, getAverageColor());
     }
 
 
