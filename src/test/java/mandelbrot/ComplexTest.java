@@ -28,6 +28,14 @@ public class ComplexTest {
     }
 
     @Test
+    void testEquals() {
+        assertEquals(new Complex(1, 2), new Complex(1, 2));
+        assertNotEquals(new Complex(1, 1), new Complex(1, 2));
+        assertNotEquals(new Complex(1, 1), new Complex(2, 1));
+        assertNotEquals(new Complex(1, 1), new Complex(0, 0));
+    }
+
+    @Test
     void testGetReal(){
         assertEquals(2., two.getReal(), Helpers.EPSILON);
         assertEquals(1., oneMinusI.getReal(), Helpers.EPSILON);
