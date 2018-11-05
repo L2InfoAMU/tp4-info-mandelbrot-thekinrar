@@ -1,8 +1,37 @@
-<?import javafx.scene.layout.GridPane?>
+<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.canvas.Canvas?>
-<GridPane fx:controller="viewer.Controller"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10">
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-    <Canvas fx:id="canvas" width="1200" height="900"/>
+<GridPane alignment="center" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/8.0.192" xmlns:fx="http://javafx.com/fxml/1" fx:controller="viewer.Controller">
+
+    <Canvas fx:id="canvas" height="900" width="1200" />
+   <FlowPane hgap="5.0" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
+      <children>
+         <Label text="centerX" />
+         <TextField fx:id="textField_centerX" prefWidth="75.0" text="-0.5" />
+         <Label text="centerY" />
+         <TextField fx:id="textField_centerY" prefWidth="75.0" text="0" />
+         <Label text="width" />
+         <TextField fx:id="textField_width" prefWidth="75.0" text="3" />
+         <Label text="aspectRatio" />
+         <TextField fx:id="textField_aspectRatioN" prefWidth="75.0" text="4"/>
+         <Label text="/" />
+         <TextField fx:id="textField_aspectRatioD" prefWidth="75.0" text="3"/>
+         <Button mnemonicParsing="false" onAction="#apply" text="Render" />
+      </children>
+   </FlowPane>
+   <columnConstraints>
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints maxHeight="900.0" minHeight="798.0" prefHeight="888.0" />
+      <RowConstraints maxHeight="132.0" minHeight="10.0" prefHeight="42.0" />
+   </rowConstraints>
 </GridPane>

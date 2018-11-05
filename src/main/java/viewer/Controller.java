@@ -1,10 +1,14 @@
 package viewer;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.stage.Modality;
 import mandelbrot.Complex;
 import mandelbrot.Mandelbrot;
 
@@ -23,11 +27,16 @@ public class Controller implements Initializable {
      * The number of subpixels for each pixel is the square of <code>SUPERSAMPLING</code>
      */
     private static final int SUPERSAMPLING = 3;
+    public TextField textField_centerX;
+    public TextField textField_centerY;
+    public TextField textField_width;
+    public TextField textField_aspectRatioN;
+    public TextField textField_aspectRatioD;
 
     @FXML
     private Canvas canvas; /* The canvas to draw on */
 
-    private Camera camera = Camera.camera0; /* The view to display */
+    private Camera camera; /* The view to display */
 
     private Mandelbrot mandelbrot = new Mandelbrot(); /* the algorithm */
 
@@ -53,9 +62,7 @@ public class Controller implements Initializable {
      * @param resources resources
      */
     @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        render();
-    }
+    public void initialize(URL location, ResourceBundle resources) {}
 
     /**
      * compute and display the image.
@@ -156,5 +163,26 @@ public class Controller implements Initializable {
             }
         }
         return new Pixel(x, y, sampledSubPixels);
+    }
+
+    public void apply(ActionEvent actionEvent) {
+        try {
+            this.camera = new Camera(
+                    Double.parseDouble(textField_centerX.getText()),
+                    Double.parseDouble(textField_centerY.getText()),
+                    Double.parseDouble(textField_width.getText()),
+                    Double.parseDouble(textField_aspectRatioN.getText()) / Double.parseDouble(textField_aspectRatioD.getText())
+            );
+        } catch(NumberFormatException e) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Rendu impossible");
+            alert.setHeaderText("Paramètres invalides");
+            alert.setContentText(e.toString());
+
+            alert.initModality(Modality.APPLICATION_MODAL);
+            alert.show();
+        }
+
+        render();
     }
 }

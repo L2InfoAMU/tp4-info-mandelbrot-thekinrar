@@ -47,11 +47,11 @@ public class Complex {
      */
     static Complex I = new Complex(0, 1);
 
-    double getReal() {
+    public double getReal() {
         return real;
     }
 
-    double getImaginary() {
+    public double getImaginary() {
         return imaginary;
     }
 
@@ -206,7 +206,6 @@ public class Complex {
     public Complex scale(double lambda) {
         return new Complex(lambda * real, lambda * imaginary);
     }
-
 
     @Override
     public boolean equals(Object o) {
