@@ -94,6 +94,15 @@ public class ComplexTest {
     }
 
     @Test
+    void testModulus() {
+        assertEquals(0, Complex.ZERO.modulus());
+        assertEquals(1, Complex.ONE.modulus());
+        assertEquals(5, new Complex(3, 4).modulus());
+        assertEquals(7, new Complex(7, 0).modulus());
+        assertEquals(5, new Complex(0, 5).modulus());
+    }
+
+    @Test
     void testReciprocal(){
         assertEquals(Complex.ONE, Complex.ONE.reciprocal());
         assertEquals(Complex.I, minusI.reciprocal());
